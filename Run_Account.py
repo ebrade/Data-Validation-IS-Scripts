@@ -8,7 +8,7 @@ def main():
        'VISION SBU', 'ACCOUNT STATUS', 'ACCOUNT STATUS DATE', 'CUSTOMER ID',
        'VISION SBU', 'ACCOUNT STATUS', 'ACCOUNT STATUS DATE', 'CUSTOMER ID',
        'VISION SBU', 'ACCOUNT STATUS', 'ACCOUNT STATUS DATE', 'CUSTOMER ID',
-       'ACCOUNT OFFICER', 'CURRENCY', 'VISION GL', 'ACCOUNT TYPE',
+       'ACCOUNT OFFICER', 'CURRENCY', 'ACCOUNT TYPE',
        'ACCOUNT OPEN DATE', 'ACCOUNT CLOSING DATE', 'FREEZE STATUS',
        'INT RATE DR', 'INT RATE CR', 'ECONOMIC SUB SECTOR CODE',
        'ECONOMIC SUB SECTOR CODE ISIC', 'PUBLIC SECTOR CODE',
@@ -22,6 +22,7 @@ def main():
       destination_name="SUNOID",
       identifier="ACCOUNT NO"
     )
+    # Fields to be added: 'VISION GL'
 
     account_analyzer_obj.load_destination_data()
     account_analyzer_obj.load_source_data()

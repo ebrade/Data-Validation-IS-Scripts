@@ -15,7 +15,7 @@ def add_default_fields(data):
             {"column_name": "COUNTRY", "value": "RW"}, 
             {"column_name": "LE_BOOK", "value": "040"},
             {"column_name": "INT RATE DR", "value": "0"}, 
-            {"column_name": "INT RATE DR", "value": "0"},
+            {"column_name": "INT RATE CR", "value": "0"},
             {"column_name": "ACCOUNT_CLOSING_DATE", "value": "01-JAN-1900"},
             {"column_name": "ACCOUNT_OWNERSHIP", "value": "0"},
             {"column_name": "CARD_SUBSCRIPTION", "value": "N"},
