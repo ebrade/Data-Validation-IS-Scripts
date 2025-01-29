@@ -33,20 +33,34 @@ class CleanCustomer():
             .get_mapped_dataframe()
         )
 
+        
+        # mapped_data.columns = mapped_data.columns.str.replace('_', ' ').str.title()
+        mapped_data.to_csv('./BUSINESSREPORT/DATA/SOURCE/CUSTOMER.csv', index=False, sep=',')
+
+        vision_data = pd.read_csv('./BUSINESSREPORT/DATA/DESTINATION/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
+        vision_data.columns = vision_data.columns.str.replace(' ', '_').str.uppercase()
+        vision_data.to_csv('./BUSINESSREPORT/DATA/DESTINATION/NEW_CUSTOMER.csv')
+
+
     def compare_columns(self):
-        T24_DATA = pd.read_csv('./BUSINESSREPORT/DATA/SOURCE/UPDATED_CUSTOMER.csv', dtype=str, sep='|')
-        VISION_DATA = pd.read_csv('./BUSINESSREPORT/DATA/DESTINATION/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
+        T24_DATA = pd.read_csv('./BUSINESSREPORT/DATA/SOURCE/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
+        VISION_DATA = pd.read_csv('./BUSINESSREPORT/DATA/DESTINATION/NEW_CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
 
-        print("======================== T24 DATA COLUMNS =============================")
-        print(T24_DATA.columns)
+        vision_columns = set(VISION_DATA.columns)
+        t24_columns = set(T24_DATA.columns)
+
+        only_in_vision = vision_columns - t24_columns
+        only_in_t24 = t24_columns - vision_columns
+
+
+        print("======================== COLUMNS NOT IN T24 DATA =============================")
+        print(only_in_vision)
         print("=======================================================================")
 
 
-        print("======================== VISION DATA COLUMNS ==========================")
-        print(VISION_DATA.columns)
+        print("======================== COLUMNS NOT IN VISION DATA ==========================")
+        print(only_in_t24)
         print("=======================================================================")
-
-
 
 
     def run(self):
@@ -56,10 +70,12 @@ class CleanCustomer():
         print("Running fields_mapping_func...")
         mapped_data = self.fields_mapping_func()
 
-        self.compare_columns()
+        # self.compare_columns()
         
 
 if __name__ == "__main__":
     cleaner = CleanCustomer()
     result = cleaner.run()
     
+
+        

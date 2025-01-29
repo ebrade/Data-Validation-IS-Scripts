@@ -46,8 +46,11 @@ mapped_data = (map
       )
 mapped_data.columns = mapped_data.columns.str.replace('_', ' ')
 mapped_data.rename(columns={'OPENING DATE':'ACCOUNT OPEN DATE','MOST RECENT DATE':'LAST TRANSACTION DATE'}, inplace=True)
-# data_vision.columns=data_vision.columns.str.replace('','')
+mapped_data['Vision OUC'] = mapped_data['Vision OUC'].str[-5:]
+mapped_data['ACCOUNT NO'] = mapped_data['ACCOUNT NO']+mapped_data['CURRENCY']
 
+
+# data_vision.columns=data_vision.columns.str.replace('','')
 mapped_data.to_csv('./BUSINESSREPORT/DATA/SOURCE/ACCOUNT.csv', index=False, sep=',')
 
 # unique_T24 = set(mapped_data.columns).difference(data_vision.columns)

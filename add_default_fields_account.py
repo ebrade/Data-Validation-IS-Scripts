@@ -11,7 +11,7 @@ class AddDefaultFields():
             {"column_name": "INT RATE DR", "value": "0"}, 
             {"column_name": "INT RATE DR", "value": "0"},
             {"column_name": "ACCOUNT_CLOSING_DATE", "value": "01-JAN-1900"},
-            {"column_name": "ACCOUNT_OWNERSHIP", "value": "0"},
+            {"column_name": "ACCOUNT_OWNERSHIP", "value": "O"},
             {"column_name": "CARD_SUBSCRIPTION", "value": "N"},
              
         ]
