@@ -1,0 +1,7 @@
+.env
+/EXCEPTIONS/
+/BUSINESSREPORT/
+/TEST/
+/PRE_LOAD/
+/__pycache__/
+/venv/
