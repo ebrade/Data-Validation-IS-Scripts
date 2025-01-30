@@ -4,7 +4,7 @@ from MappAccount import MappAccount
 
 
 data = pd.read_csv('./BUSINESSREPORT/DATA/SOURCE/ACCOUNT_ORACLE_DATA_OG.csv', dtype=str,sep='|')
-data_vision = pd.read_csv('./BUSINESSREPORT/DATA/DESTINATION/ACCOUNT.csv', dtype=str,sep=',')
+data_vision = pd.read_csv('./BUSINESSREPORT/DATA/DESTINATION/ACCOUNT_OG.csv', dtype=str,sep=',')
 
 
 def add_default_fields(data):
@@ -17,7 +17,7 @@ def add_default_fields(data):
             {"column_name": "INT RATE DR", "value": "0"}, 
             {"column_name": "INT RATE CR", "value": "0"},
             {"column_name": "ACCOUNT_CLOSING_DATE", "value": "01-JAN-1900"},
-            {"column_name": "ACCOUNT_OWNERSHIP", "value": "0"},
+            {"column_name": "ACCOUNT_OWNERSHIP", "value": "O"},
             {"column_name": "CARD_SUBSCRIPTION", "value": "N"},
              
         ]
@@ -46,9 +46,16 @@ mapped_data = (map
       )
 mapped_data.columns = mapped_data.columns.str.replace('_', ' ')
 mapped_data.rename(columns={'OPENING DATE':'ACCOUNT OPEN DATE','MOST RECENT DATE':'LAST TRANSACTION DATE'}, inplace=True)
-# data_vision.columns=data_vision.columns.str.replace('','')
+mapped_data['Vision OUC'] = mapped_data['VISION OUC'].str[-5:]
+# mapped_data["ALT ACC"] = mapped_data["ALT ACC"].str[:-3]
+mapped_data["ACCOUNT NO"] = mapped_data["ALT ACC"].fillna(mapped_data["ACCOUNT NO"])
+mapped_data['DATE LAST MODIFIED'] = pd.to_datetime(mapped_data['DATE LAST MODIFIED'], format='%Y%m%d', errors='coerce')
 
 mapped_data.to_csv('./BUSINESSREPORT/DATA/SOURCE/ACCOUNT.csv', index=False, sep=',')
+
+
+data_vision.loc[data_vision["ACCOUNT NO"].str.len() == 18, "ACCOUNT NO"] = data_vision["ACCOUNT NO"].str[:-3]
+data_vision.to_csv('./BUSINESSREPORT/DATA/DESTINATION/ACCOUNT.csv', index=False, sep=',')
 
 # unique_T24 = set(mapped_data.columns).difference(data_vision.columns)
 
@@ -60,4 +67,3 @@ mapped_data.to_csv('./BUSINESSREPORT/DATA/SOURCE/ACCOUNT.csv', index=False, sep=
 # print(unique_T24)
 # print('======================================')
 # print(data_vision.columns)
-

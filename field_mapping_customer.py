@@ -23,31 +23,46 @@ class CustomerMapping():
         self.df['VISION_SBU'] = np.select(conditions, values, default='NA')
         return self
 
-    def map_company_book(self):
-        conditions = [
-            self.df['SUB_SEG'].isin([10, 11, 12]),
-            self.df['SUB_SEG'].isin([43]),
-            self.df['SUB_SEG'].isin([41]),
-            self.df['SUB_SEG'].isin([23, 42]),
-            self.df['SUB_SEG'].isin([22]),
-            self.df['SUB_SEG'].isin([30]),
-            self.df['SUB_SEG'].isin([20, 24, 25]),
-            self.df['SUB_SEG'].isin([40]),
-            self.df['SUB_SEG'].isin([21]),
-        ]
+    # def map_company_book(self):
+    #     conditions = [
+    #         self.df['SUB_SEG'].isin([10, 11, 12]),
+    #         self.df['SUB_SEG'].isin([43]),
+    #         self.df['SUB_SEG'].isin([41]),
+    #         self.df['SUB_SEG'].isin([23, 42]),
+    #         self.df['SUB_SEG'].isin([22]),
+    #         self.df['SUB_SEG'].isin([30]),
+    #         self.df['SUB_SEG'].isin([20, 24, 25]),
+    #         self.df['SUB_SEG'].isin([40]),
+    #         self.df['SUB_SEG'].isin([21]),
+    #     ]
 
-        values = ['RETL', 'INST', 'LRGOTHR', 'LRGCOMP', 'MEDCOMP', 'OTHER', 'MCECOMP', '', 'SMLCOMP']
-        self.df['VISION_SBU'] = np.select(conditions, values, default='NA')
-        return self
+    #     values = ['RETL', 'INST', 'LRGOTHR', 'LRGCOMP', 'MEDCOMP', 'OTHER', 'MCECOMP', '', 'SMLCOMP']
+    #     self.df['VISION_OUC'] = np.select(conditions, values, default='NA')
+    #     return self
 
     def map_gender(self):
         conditions = [
             self.df['GENDER'].isin(['MALE']),
             self.df['GENDER'].isin(['FEMALE']),
         ]
-
+       
         values = ['M', 'F']
         self.df['CUSTOMER_GENDER'] = np.select(conditions, values, default='NA')
+        return self
+
+    def map_customer_status(self):
+        conditions = [
+            self.df['CUSTOMER_STATUS'].isin(['8']),
+            self.df['CUSTOMER_STATUS'].isin(['9']),
+            self.df['CUSTOMER_STATUS'].isin(['10']),
+            self.df['CUSTOMER_STATUS'].isin(['12']),
+            self.df['CUSTOMER_STATUS'].isin(['13']),
+            self.df['CUSTOMER_STATUS'].isin(['50']),
+            self.df['CUSTOMER_STATUS'].isin(['60']),
+        ]
+
+        values = ['2', '3', '4', '6', '7', '2', '4']
+        self.df['LEGAL_STATUS'] = np.select(conditions, values, default='0')
         return self
 
     def map_inputter(self):
@@ -60,11 +75,9 @@ class CustomerMapping():
         return self
 
     def map_date_of_birth(self):
-        conditions = [
-            self.df['DATE_OF_BIRTH'] < '01-JAN-1900',
-        ]
-        values = ['19000101']
-        self.df['DATE_OF_BIRTH'] = np.select(conditions, values)
+        self.df['DATE_OF_BIRTH'] = pd.to_datetime(self.df['DATE_OF_BIRTH'], format='%Y%m%d', errors='coerce')
+        self.df['DATE_OF_BIRTH'].fillna(pd.to_datetime('19000101', format='%Y%m%d'), inplace=True)
+        self.df.loc[self.df['DATE_OF_BIRTH'] < pd.to_datetime('1900-01-01'), 'DATE_OF_BIRTH'] = pd.to_datetime('19000101', format='%Y%m%d')
         return self
 
 

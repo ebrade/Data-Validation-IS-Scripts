@@ -18,6 +18,8 @@ class AddDefaultFields():
             {"column_name": "EMP_VILLAGE", "value": "NULL"}, 
             {"column_name": "EMP_COUNTRY", "value": "NULL"},
             {"column_name": "WORK_TELEPHONE", "value": "NA"}, 
+            {"column_name": "ECONOMIC_SECTOR_CODE", "value": "NA"},
+            {"column_name": "ECONOMIC_SUB_SECTOR_CODE", "value": "NA"}
         ]
 
         for col in ADDITIONAL_COLUMNS:
