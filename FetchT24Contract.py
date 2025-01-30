@@ -25,10 +25,8 @@ SELECT RECID,
         EXTRACTVALUE(xmlrecord,'/row/c162/text()') AS Vision_SBU,
         EXTRACTVALUE(xmlrecord,'/row/c24/text()') AS Orig_Contract_Date,
         EXTRACTVALUE(xmlrecord,'/row/c12[1]/text()') AS Start_Date,
-
         EXTRACTVALUE(aa_acc.xmlrecord,'/row/c6[1]/text()' ) as Maturity_Date,
         EXTRACTVALUE(xmlrecord,'/row/c162/text()') AS Settlement_Date,
-
         EXTRACTVALUE(xmlrecord,'/row/c162/text()') AS Settlement_Date,
 
 
