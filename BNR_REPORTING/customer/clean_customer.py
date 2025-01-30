@@ -12,7 +12,7 @@ class CleanCustomer():
     
     def fields_mapping_func(self):
 
-        data = pd.read_csv('./BUSINESSREPORT/DATA/SOURCE/UPDATED_CUSTOMER.csv', dtype=str,sep='|')
+        data = pd.read_csv('../DATA/SOURCE/UPDATED_CUSTOMER.csv', dtype=str,sep='|')
         cust_map = CustomerMapping(data)
 
         mapped_data = (cust_map
@@ -62,16 +62,16 @@ class CleanCustomer():
 
         mapped_data.to_csv('./BUSINESSREPORT/DATA/SOURCE/CUSTOMER.csv', index=False, sep=',')
 
-        vision_data = pd.read_csv('./BUSINESSREPORT/DATA/DESTINATION/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
+        vision_data = pd.read_csv('../DATA/DESTINATION/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
         vision_data.columns = vision_data.columns.str.replace(' ', '_').str.upper()
-        vision_data.to_csv('./BUSINESSREPORT/DATA/DESTINATION/NEW_CUSTOMER.csv', index=False)
+        vision_data.to_csv('../DATA/DESTINATION/NEW_CUSTOMER.csv', index=False)
 
 
 
 
     def compare_columns(self):
-        T24_DATA = pd.read_csv('./BUSINESSREPORT/DATA/SOURCE/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
-        VISION_DATA = pd.read_csv('./BUSINESSREPORT/DATA/DESTINATION/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
+        T24_DATA = pd.read_csv('../DATA/SOURCE/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
+        VISION_DATA = pd.read_csv('../DATA/DESTINATION/CUSTOMER.csv', dtype=str, sep=',', engine='python',encoding='latin1')
 
         
 
