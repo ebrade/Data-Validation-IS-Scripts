@@ -34,13 +34,13 @@ class AccountAnalyzer(FieldsAnalyzerInterface):
 
     def load_destination_data(self):
         # f = f"{super().construct_root(self.test_iter, self.file_checked, self.is_post_cob)}/{self.file_checked}_{self.destination_name}_DATA_OG.csv"
-        f = f"./BUSINESSREPORT/DATA/DESTINATION/{self.file_checked}.csv"
+        f = f"../DATA/DESTINATION/{self.file_checked}.csv"
         dfInstance = DFGenerator(filename=f, file_type = 'csv')
         self.destination_data = dfInstance.read_special_csv()
 
     def load_source_data(self):
         # f = f"{super().construct_root(self.test_iter, self.file_checked, self.is_post_cob)}/{self.file_checked}_{self.source_name}_DATA_OG.csv"
-        f = f"./BUSINESSREPORT/DATA/SOURCE/{self.file_checked}.csv"
+        f = f"../DATA/SOURCE/{self.file_checked}.csv"
 
         dfInstance = DFGenerator(filename=f, file_type = 'csv')
         self.source_data = dfInstance.read_special_csv()

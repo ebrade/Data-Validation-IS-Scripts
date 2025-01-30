@@ -3,7 +3,7 @@ import pandas as pd
 
 class AddDefaultFields():
     def add_default_fields(self):
-        CUSTOMER_DATA = pd.read_csv("BUSINESSREPORT/DATA/SOURCE/ACCOUNT_ORACLE_DATA.csv", sep="|", dtype=str)
+        CUSTOMER_DATA = pd.read_csv("../DATA/SOURCE/ACCOUNT_ORACLE_DATA.csv", sep="|", dtype=str)
 
         ADDITIONAL_COLUMNS = [
             {"column_name": "COUNTRY", "value": "RW"}, 
@@ -11,7 +11,7 @@ class AddDefaultFields():
             {"column_name": "INT RATE DR", "value": "0"}, 
             {"column_name": "INT RATE DR", "value": "0"},
             {"column_name": "ACCOUNT_CLOSING_DATE", "value": "01-JAN-1900"},
-            {"column_name": "ACCOUNT_OWNERSHIP", "value": "0"},
+            {"column_name": "ACCOUNT_OWNERSHIP", "value": "O"},
             {"column_name": "CARD_SUBSCRIPTION", "value": "N"},
              
         ]
@@ -20,6 +20,6 @@ class AddDefaultFields():
             CUSTOMER_DATA[col["column_name"]] = col["value"]
 
 
-        output_path = "BUSINESSREPORT/DATA/SOURCE/UPDATED_CUSTOMER.csv"
+        output_path = "../DATA/SOURCE/UPDATED_CUSTOMER.csv"
         CUSTOMER_DATA.to_csv(output_path, index=False, sep="|")
 

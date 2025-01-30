@@ -1,10 +1,13 @@
 from fields_analyzer_interface import FieldsAnalyzerInterface
+from df_generator import DFGenerator
+import pandas as pd
+from datetime import datetime
+
 
 class CustomerAnalyzer(FieldsAnalyzerInterface):
     def __init__(self,  cols=None, 
                  file_checked=None, 
                  test_iter=None, 
-                 is_post_cob=False,
                  source_name=None,
                  destination_name=None,
                  identifier=None) -> None:
@@ -16,20 +19,19 @@ class CustomerAnalyzer(FieldsAnalyzerInterface):
         self.cols_to_check = cols
         self.file_checked = file_checked
         self.test_iter = test_iter
-        self.is_post_cob = is_post_cob
         self.source_name = source_name
         self.destination_name=destination_name
         self.identifier = identifier
     
     def load_destination_data(self):
         # f = f"{super().construct_root(self.test_iter, self.file_checked, self.is_post_cob)}/{self.file_checked}_{self.destination_name}_DATA_OG.csv"
-        f = f"./BUSINESSREPORT/DATA/DESTINATION/{self.file_checked}.csv"
+        f = f"../DATA/DESTINATION/{self.file_checked}.csv"
         dfInstance = DFGenerator(filename=f, file_type = 'csv')
         self.destination_data = dfInstance.read_special_csv()
 
     def load_source_data(self):
         # f = f"{super().construct_root(self.test_iter, self.file_checked, self.is_post_cob)}/{self.file_checked}_{self.source_name}_DATA_OG.csv"
-        f = f"./BUSINESSREPORT/DATA/SOURCE/{self.file_checked}.csv"
+        f = f"../DATA/SOURCE/{self.file_checked}.csv"
 
         dfInstance = DFGenerator(filename=f, file_type = 'csv')
         self.source_data = dfInstance.read_special_csv()
@@ -53,7 +55,6 @@ class CustomerAnalyzer(FieldsAnalyzerInterface):
             source=self.source_name,
             test_iteration=self.test_iter, 
             file_checked=self.file_checked, 
-            cob_status=self.is_post_cob
             )
         
         super().export_exceptions(
@@ -64,5 +65,4 @@ class CustomerAnalyzer(FieldsAnalyzerInterface):
             source=self.source_name,
             test_iteration=self.test_iter, 
             file_checked=self.file_checked, 
-            cob_status=self.is_post_cob
         )

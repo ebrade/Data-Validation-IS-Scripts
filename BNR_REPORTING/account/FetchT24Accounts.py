@@ -21,7 +21,9 @@ else:
 oracle_query = """
 SELECT 
     A.RECID AS Account_No,
-    EXTRACTVALUE(A.XMLRECORD, '/row/c3[1]/text()') as Account_Name,
+    EXTRACTVALUE(A.XMLRECORD, '/row/c100[1]/text()') as ALT_ACC,
+    EXTRACTVALUE(A.XMLRECORD, '/row/c8[1]/text()') as CURRENCY,
+    EXTRACTVALUE(A.XMLRECORD, '/row/c5[1]/text()') as Account_Name,
     EXTRACTVALUE(A.XMLRECORD, '/row/c252[1]/text()') as Vision_OUC,
     EXTRACTVALUE(A.XMLRECORD, '/row/c71[1]/text()') as Account_Status,
     EXTRACTVALUE(B.XMLRECORD,'/row/c7[1]/text()' ) as ARR_AGE_STATUS,

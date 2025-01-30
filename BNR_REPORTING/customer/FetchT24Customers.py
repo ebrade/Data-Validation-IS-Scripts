@@ -20,9 +20,8 @@ else:
     IS_POST_COB = False
 
 oracle_query = """
-SELECT RECID,
+SELECT RECID as CUSTOMER_ID,
         EXTRACTVALUE(xmlrecord,'/row/c162[1]/text()') AS country,
-        EXTRACTVALUE(xmlrecord,'/row/c179[@m="142"][1]/text()' ) AS customer_id,
         EXTRACTVALUE(xmlrecord,'/row/c3[1]/text()') AS forename_1,
         EXTRACTVALUE(xmlrecord,'/row/c4[1]/text()') AS forename_2,
         EXTRACTVALUE(xmlrecord,'/row/c61[1]/text()') AS surname,
@@ -32,11 +31,10 @@ SELECT RECID,
         EXTRACTVALUE(xmlrecord,'/row/c179[1]/text()') AS Sub_Seg,
         EXTRACTVALUE(xmlrecord,'/row/c24[1]/text()') AS Account_Officer,
         EXTRACTVALUE(xmlrecord,'/row/c100[1]/text()') AS Customer_Open_Date,
-        EXTRACTVALUE(xmlrecord,'row/c100[1]/text()') AS opening_date,
         EXTRACTVALUE(xmlrecord,'/row/c63[1]/text()') AS Gender,
         EXTRACTVALUE(xmlrecord,'/row/c183[1]/text()') AS inputter,
         EXTRACTVALUE(xmlrecord,'/row/c64[1]/text()') AS date_of_birth,
-        EXTRACTVALUE(xmlrecord,'/row/c179[@m="3"][1]/text()' ) AS place_of_birth,
+        EXTRACTVALUE(xmlrecord,'/row/c179[@m="162"][1]/text()' ) AS place_of_birth,
         EXTRACTVALUE(xmlrecord,'/row/c65[1]/text()') AS marital_status,
         EXTRACTVALUE(xmlrecord,'/row/c179[@m="40"][1]/text()') AS Spouse_Name,
         EXTRACTVALUE(xmlrecord,'/row/c179[@m="125"][1]/text()') AS Social_Economic_Class,
@@ -76,15 +74,13 @@ SELECT RECID,
         EXTRACTVALUE(xmlrecord,'/row/c79[1]/text()' ) as Income,
         EXTRACTVALUE(xmlrecord,'/row/c81[1]/text()' ) as Income_Frequency,         
         EXTRACTVALUE(xmlrecord,'/row/c29[1]/text()' ) as Customer_Status,
-      
-        EXTRACTVALUE(xmlrecord,'/row/c179[@m="74"][1]/text()') AS work_tel,
-        EXTRACTVALUE(xmlrecord,'/row/c179[@m="165"][1]/text()') as economic_sub_sect,
         EXTRACTVALUE(xmlrecord,'/row/c179[@m="131"][1]/text()') as relationship_type,
-        EXTRACTVALUE(xmlrecord,'/row/c74[1]') as employers_name,
         EXTRACTVALUE(xmlrecord,'/row/c35[1]/text()') as National_ID_Type,
         EXTRACTVALUE(xmlrecord,'/row/c34[1]/text()' ) as National_ID_Number,
         EXTRACTVALUE(xmlrecord,'/row/c54[1]/text()' ) as Group_Name,
-        EXTRACTVALUE(xmlrecord,'/row/c53[1]/text()' ) as Group_Id
+        EXTRACTVALUE(xmlrecord,'/row/c53[1]/text()' ) as Group_Id,
+        EXTRACTVALUE(xmlrecord,'/row/c184[1]/text()' ) as DATE_LAST_MODIFIED        
+        
     FROM T24.FBNK_CUSTOMER
 """
 
