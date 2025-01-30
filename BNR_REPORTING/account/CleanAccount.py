@@ -3,8 +3,8 @@ import numpy as np
 from MappAccount import MappAccount
 
 
-data = pd.read_csv('./BUSINESSREPORT/DATA/SOURCE/ACCOUNT_ORACLE_DATA_OG.csv', dtype=str,sep='|')
-data_vision = pd.read_csv('./BUSINESSREPORT/DATA/DESTINATION/ACCOUNT_OG.csv', dtype=str,sep=',')
+data = pd.read_csv('../DATA/SOURCE/ACCOUNT_ORACLE_DATA_OG.csv', dtype=str,sep='|')
+data_vision = pd.read_csv('../DATA/DESTINATION/ACCOUNT_OG.csv', dtype=str,sep=',')
 
 
 def add_default_fields(data):
@@ -51,11 +51,11 @@ mapped_data['Vision OUC'] = mapped_data['VISION OUC'].str[-5:]
 mapped_data["ACCOUNT NO"] = mapped_data["ALT ACC"].fillna(mapped_data["ACCOUNT NO"])
 mapped_data['DATE LAST MODIFIED'] = pd.to_datetime(mapped_data['DATE LAST MODIFIED'], format='%Y%m%d', errors='coerce')
 
-mapped_data.to_csv('./BUSINESSREPORT/DATA/SOURCE/ACCOUNT.csv', index=False, sep=',')
+mapped_data.to_csv('../DATA/SOURCE/ACCOUNT.csv', index=False, sep=',')
 
 
 data_vision.loc[data_vision["ACCOUNT NO"].str.len() == 18, "ACCOUNT NO"] = data_vision["ACCOUNT NO"].str[:-3]
-data_vision.to_csv('./BUSINESSREPORT/DATA/DESTINATION/ACCOUNT.csv', index=False, sep=',')
+data_vision.to_csv('../DATA/DESTINATION/ACCOUNT.csv', index=False, sep=',')
 
 # unique_T24 = set(mapped_data.columns).difference(data_vision.columns)
 

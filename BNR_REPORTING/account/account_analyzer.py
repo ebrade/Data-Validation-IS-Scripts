@@ -1,17 +1,18 @@
-from fields_analyzer_interface import FieldsAnalyzerInterface
-from df_generator import DFGenerator
 import pandas as pd
 from datetime import datetime
+from fields_analyzer_interface import FieldsAnalyzerInterface
+from df_generator import DFGenerator
 
 
-class CustomerAnalyzer(FieldsAnalyzerInterface):
+
+class AccountAnalyzer(FieldsAnalyzerInterface):
     def __init__(self,  cols=None, 
                  file_checked=None, 
                  test_iter=None, 
                  source_name=None,
                  destination_name=None,
                  identifier=None) -> None:
-                         
+        
         self.destination_data = None
         self.source_data = None
         self.merged_df = None
@@ -23,6 +24,14 @@ class CustomerAnalyzer(FieldsAnalyzerInterface):
         self.destination_name=destination_name
         self.identifier = identifier
     
+    def convert_date(self,date_string):
+        if pd.isna(date_string):  
+            return None  
+        try:
+            return datetime.strptime(date_string, "%Y%m%d").strftime("%d-%b-%Y")
+        except ValueError:
+            return None
+
     def load_destination_data(self):
         # f = f"{super().construct_root(self.test_iter, self.file_checked, self.is_post_cob)}/{self.file_checked}_{self.destination_name}_DATA_OG.csv"
         f = f"../DATA/DESTINATION/{self.file_checked}.csv"
@@ -35,8 +44,12 @@ class CustomerAnalyzer(FieldsAnalyzerInterface):
 
         dfInstance = DFGenerator(filename=f, file_type = 'csv')
         self.source_data = dfInstance.read_special_csv()
+        self.source_data.columns = self.source_data.columns.str.replace('_',' ')
+        self.source_data['ACCOUNT OPEN DATE'] = self.source_data['ACCOUNT OPEN DATE'].apply(self.convert_date)
+        self.source_data['ACCOUNT STATUS DATE'] = self.source_data['ACCOUNT STATUS DATE'].apply(self.convert_date)
+        self.source_data['DATE LAST MODIFIED'] = self.source_data['DATE LAST MODIFIED'].apply(self.convert_date)
+
     
-  
     def check_accuracy(self):
         self.merged_df = pd.merge(self.destination_data, self.source_data, on=self.identifier, how='inner', indicator=True, suffixes=(f"_{self.destination_name}", f"_{self.source_name}"))
         dict_s = []
@@ -45,7 +58,7 @@ class CustomerAnalyzer(FieldsAnalyzerInterface):
             dict_s.append(n_row)
         self.merged_df = pd.DataFrame(dict_s)
         dict_s.clear()
-
+    
     def export_exceptions(self):
         super().export_missing_data(
             destination_df=self.destination_data, 
