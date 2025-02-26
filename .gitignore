@@ -1,6 +1,5 @@
 .env
 venv/
-BUSINESS_REPORTING/**/__pycache__/
+**/__pycache__/
 BUSINESS_REPORTING/Data/
 BUSINESS_REPORTING/EXCEPTIONS/
-BUSINESS_REPORTING/__pycache__/
