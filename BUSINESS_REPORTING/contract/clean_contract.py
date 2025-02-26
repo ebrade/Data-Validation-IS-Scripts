@@ -50,3 +50,4 @@ merged_data = (map
 
 )
 merged_data.columns=merged_data.columns.str.replace('_',' ')
+# print(merged_data)
